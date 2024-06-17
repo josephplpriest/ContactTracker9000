@@ -12,9 +12,9 @@ namespace ContactTracker.Domain.Contacts
 
         public string? Occupation { get; set; }
 
-        public List<Interest> Interests { get; set; } = [];
+        public List<Interest>? Interests { get; set; } = [];
 
-        public Relationship Relationship { get; set; } 
+        public Relationship? Relationship { get; set; } 
     }
 
     public class Interest : Entity

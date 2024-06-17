@@ -16,7 +16,9 @@ namespace ContactTracker.Domain.Events
         public bool HasOccurred { get; set; } = false;
         public bool InPerson { get; set; }
 
-        public Contact? Contact{ get; set; }
+        public Guid contactId { get; set; }
+        public Contact Contact{ get; set; }
+
     }
 
 }

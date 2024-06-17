@@ -1,0 +1,16 @@
+{
+    "Id": "a4d94f8c-4f63-4a1e-b3e8-1a8c6e6e7c47",
+    "CreatedBy": "System",
+    "CreatedOn": "2023-06-14T10:30:00Z",
+    "UpdatedOn": "2023-06-14T10:30:00Z",
+    "Date": "2023-07-01T14:00:00Z",
+    "Location": "Acme Corp, New York",
+    "Description": "Quarterly business review meeting",
+    "Type": 5,
+    "Duration": "02:00:00",
+    "PreNotes": "Prepare presentation slides and financial reports",
+    "PostNotes": null,
+    "ThankYouSent": false,
+    "HasOccurred": false,
+    "InPerson": true
+}

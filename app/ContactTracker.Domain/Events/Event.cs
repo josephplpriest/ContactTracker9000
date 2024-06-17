@@ -1,3 +1,5 @@
+using ContactTracker.Domain.Contacts;
+
 namespace ContactTracker.Domain.Events
 {
 
@@ -13,6 +15,8 @@ namespace ContactTracker.Domain.Events
         public bool ThankYouSent { get; set; } = false;
         public bool HasOccurred { get; set; } = false;
         public bool InPerson { get; set; }
+
+        public Contact? Contact{ get; set; }
     }
 
 }

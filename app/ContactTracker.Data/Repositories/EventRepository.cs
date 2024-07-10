@@ -1,8 +1,5 @@
 using ContactTracker.Domain.Events;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ContactTracker.Data.Repositories
 {
@@ -17,7 +14,7 @@ namespace ContactTracker.Data.Repositories
 
         async Task IEventRepository.DeleteAsync(Guid id)
         {
-            var Event = await dbContext.Event.SingleOrDefaultAsync(x => x.Id == id);
+            var Event = await dbContext.Events.SingleOrDefaultAsync(x => x.Id == id);
 
             if (Event == null) return;
 
@@ -25,17 +22,18 @@ namespace ContactTracker.Data.Repositories
 
         async Task<Event> IEventRepository.GetAsync(Guid id)
         {
-            return await dbContext.Event.SingleOrDefaultAsync(x => x.Id == id);
+            var Event = await dbContext.Events.SingleOrDefaultAsync(x => x.Id == id);
+            return Event ?? throw new KeyNotFoundException($"Event with id {id} not found");
         }
 
         async Task<IEnumerable<Event>> IEventRepository.ListAsync(DateTime startDate, DateTime endDate)
         {
-            return await dbContext.Event.Where(x => x.Date >= startDate && x.Date <= endDate).ToListAsync();
+            return await dbContext.Events.Where(x => x.Date >= startDate && x.Date <= endDate).ToListAsync();
         }
 
         async Task IEventRepository.AddAsync(Event e)
         {
-            await dbContext.Event.AddAsync(e);
+            await dbContext.Events.AddAsync(e);
         }
 
         public async Task SaveChangesAsync()

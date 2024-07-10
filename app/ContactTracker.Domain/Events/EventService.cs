@@ -1,69 +1,75 @@
-// using ContactTracker.Domain.Events;
+using ContactTracker.Domain.Events;
 
-// namespace ContactTracker.Domain.Events
-// {
-//     public interface IEventService
-//     {
-//         Task<Event> GetEventAsync(Guid id);
+namespace ContactTracker.Domain.Events
+{
+    public interface IEventService
+    {
+        Task<Event> GetEventAsync(Guid id);
 
-//         Task<IEnumerable<Event>> GetEventsAsync(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<Event>> GetEventsAsync(DateTime startDate, DateTime endDate);
 
-//         Task DeleteEventAsync(DeleteEventDto deleteEventDto);
+        Task DeleteEventAsync(DeleteEventDto deleteEventDto);
 
-//         Task CreateEventAsync(CreateEventDto createEventDto);
+        Task CreateEventAsync(CreateEventDto createEventDto);
 
-//         Task UpdateEventAsync(UpdateEventDto updateEventDto);
-//     }
+        Task UpdateEventAsync(UpdateEventDto updateEventDto);
+    }
 
-//     public class EventService : IEventService
-//     {
-//         private readonly IEventRepository eventRepository;
+    public class EventService : IEventService
+    {
+        private readonly IEventRepository eventRepository;
 
-//         public EventService(IEventRepository eventRepository, IContactRepository contactRepository)
-//         {
-//             this.eventRepository = eventRepository;
-//             this.contactRepository = contactRepository;
-//         }
+        public EventService(IEventRepository eventRepository, IContactRepository contactRepository)
+        {
+            this.eventRepository = eventRepository;
+            this.contactRepository = contactRepository;
+        }
 
-//         public async Task<Event> GetEventAsync(Guid id)
-//         {
-//             return await eventRepository.GetAsync(id);
-//         }
+        public async Task<Event> GetEventAsync(Guid id)
+        {
+            return await eventRepository.GetAsync(id);
+        }
 
-//         public async Task<IEnumerable<Event>> GetEventsAsync(DateTime startDate, DateTime endDate)
-//         {
-//             return await eventRepository.ListAsync(startDate, endDate);
-//         }
+        public async Task<IEnumerable<Event>> GetEventsAsync(DateTime startDate, DateTime endDate)
+        {
+            return await eventRepository.ListAsync(startDate, endDate);
+        }
 
-//         public async Task CreateAddressAsync(CreateAddressDto dto)
-//         {
-//             var customer = await customerRepository.GetAsync(dto.CustomerSub);
-//             var address = new Address(customer, dto.AddressLine1, dto.AddressLine2, dto.City, dto.State, dto.Country, dto.ZipCode);
+        public async Task CreateEventAsync(CreateEventDto dto)
+        {
+            var e = new Event(dto.Date, dto.Location, dto.Description, dto.Type, dto.Duration,
+                            dto.PreNotes, dto.PostNotes, dto.ThankYouSent, dto.HasOccurred, dto.InPerson, dto.contactId, dto.Contact);
 
-//             await addressRepository.AddAsync(address);
+            await eventRepository.AddAsync(e);
+            await eventRepository.SaveChangesAsync();
+        }
 
-//             await addressRepository.SaveChangesAsync();
-//         }
+        public async Task UpdateEventAsync(UpdateEventDto dto)
+        {
+            var e = await eventRepository.GetAsync(dto.id);
 
-//         public async Task UpdateAddressAsync(UpdateAddressDto dto)
-//         {
-//             var address = await addressRepository.GetAsync(dto.CustomerSub, dto.AddressId);
+            e.Date = dto.Date;
+            e.Location = dto.Location;
+            e.Description = dto.Description;
+            e.Type = dto.Type;
+            e.Duration = dto.Duration;
+            e.PreNotes = dto.PreNotes;
+            e.PostNotes = dto.PostNotes;
+            e.ThankYouSent = dto.ThankYouSent;
+            e.HasOccurred = dto.HasOccured;
+            e.InPerson = dto.InPerson;
+            e.contactId = dto.ContactId;
+            e.Contact = dto.Contact; 
 
-//             address.AddressLine1 = dto.AddressLine1;
-//             address.AddressLine2 = dto.AddressLine2;
-//             address.City = dto.City;
-//             address.State = dto.State;
-//             address.Country = dto.Country;
-//             address.ZipCode = dto.ZipCode;
+            await eventRepository.AddAsync(e);
+            await eventRepository.SaveChangesAsync();
+        }
 
-//             await addressRepository.SaveChangesAsync();
-//         }
+        public async Task DeleteEventAsync(DeleteEventDto dto)
+        {
+            await eventRepository.DeleteAsync(dto.id);
 
-//         public async Task DeleteAddressAsync(DeleteAddressDto dto)
-//         {
-//             await addressRepository.DeleteAsync(dto.CustomerSub, dto.AddressId);
-
-//             await addressRepository.SaveChangesAsync();
-//         }
-//     }
-// }
+            await eventRepository.SaveChangesAsync();
+        }
+    }
+}

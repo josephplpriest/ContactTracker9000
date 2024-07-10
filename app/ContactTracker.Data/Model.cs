@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ContactTracker.Domain.Contacts;
 using ContactTracker.Domain.Events;
-public class ContactTrackerContext : DbContext
+public class ApplicationDbContext : DbContext
 {
     public DbSet<Contact> Contacts { get; set; }
     public DbSet<Event> Events { get; set; }
 
     public string DbPath { get; }
 
-    public ContactTrackerContext()
+    public ApplicationDbContext()
     {
         var folder = Environment.SpecialFolder.LocalApplicationData;
         var path = Environment.GetFolderPath(folder);

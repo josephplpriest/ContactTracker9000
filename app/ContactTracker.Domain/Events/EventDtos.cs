@@ -1,4 +1,4 @@
-using ContactTracker.Domain.Contacts;
+using ContactTracker.Domain;
 
 namespace ContactTracker.Domain.Events
 {
@@ -6,14 +6,13 @@ namespace ContactTracker.Domain.Events
         DateTime? Date,
         string? Location,
         string Description,
-        string Type,
+        EventType Type,
         TimeSpan? Duration,
         string? PreNotes,
         string? PostNotes,
-        bool ThankYouSent,
-        bool HasOccurred,
         bool InPerson,
-        Contact? Contact
+        Guid? ContactId,
+        ContactTracker.Domain.Contacts.Contact? Contact
     );
 
     public record UpdateEventDto(
@@ -21,20 +20,18 @@ namespace ContactTracker.Domain.Events
         DateTime? Date,
         string? Location,
         string Description,
-        string Type,
+        EventType Type,
         TimeSpan? Duration,
         string? PreNotes,
         string? PostNotes,
-        bool ThankYouSent,
-        bool HasOccurred,
         bool InPerson,
-        Contact? Contact
+        Guid? ContactId,
+        ContactTracker.Domain.Contacts.Contact? Contact,
+        bool ThankYouSent,
+        bool HasOccurred
     );
 
     public record DeleteEventDto(
-        Guid EventId,
-        Guid ContactId
+        Guid EventId
     );
-
-
 }

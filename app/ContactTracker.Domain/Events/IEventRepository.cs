@@ -8,6 +8,8 @@ namespace ContactTracker.Domain.Events
 
         internal protected Task AddAsync(Event e);
 
+        internal protected Task UpdateAsync(Event e);
+
         internal protected Task DeleteAsync(Guid id);
 
         internal protected Task SaveChangesAsync();

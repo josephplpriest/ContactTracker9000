@@ -1,4 +1,6 @@
 using ContactTracker.Domain.Events;
+using ContactTracker.Domain.Contacts;
+
 
 namespace ContactTracker.Domain.Events
 {
@@ -18,6 +20,7 @@ namespace ContactTracker.Domain.Events
     public class EventService : IEventService
     {
         private readonly IEventRepository eventRepository;
+        private readonly IContactRepository contactRepository;
 
         public EventService(IEventRepository eventRepository, IContactRepository contactRepository)
         {
@@ -37,8 +40,19 @@ namespace ContactTracker.Domain.Events
 
         public async Task CreateEventAsync(CreateEventDto dto)
         {
-            var e = new Event(dto.Date, dto.Location, dto.Description, dto.Type, dto.Duration,
-                            dto.PreNotes, dto.PostNotes, dto.ThankYouSent, dto.HasOccurred, dto.InPerson, dto.contactId, dto.Contact);
+            var e = new Event
+            {
+                Date = dto.Date,
+                Location = dto.Location,
+                Description = dto.Description,
+                Type = dto.Type,
+                Duration = dto.Duration,
+                PreNotes = dto.PreNotes,
+                PostNotes = dto.PostNotes,
+                InPerson = dto.InPerson,
+                contactId = dto.ContactId,
+                Contact = dto.Contact
+            };
 
             await eventRepository.AddAsync(e);
             await eventRepository.SaveChangesAsync();
@@ -46,7 +60,7 @@ namespace ContactTracker.Domain.Events
 
         public async Task UpdateEventAsync(UpdateEventDto dto)
         {
-            var e = await eventRepository.GetAsync(dto.id);
+            var e = await eventRepository.GetAsync(dto.EventId);
 
             e.Date = dto.Date;
             e.Location = dto.Location;
@@ -56,20 +70,20 @@ namespace ContactTracker.Domain.Events
             e.PreNotes = dto.PreNotes;
             e.PostNotes = dto.PostNotes;
             e.ThankYouSent = dto.ThankYouSent;
-            e.HasOccurred = dto.HasOccured;
+            e.HasOccurred = dto.HasOccurred;
             e.InPerson = dto.InPerson;
             e.contactId = dto.ContactId;
-            e.Contact = dto.Contact; 
+            e.Contact = dto.Contact;
 
-            await eventRepository.AddAsync(e);
+            await eventRepository.UpdateAsync(e);
             await eventRepository.SaveChangesAsync();
         }
 
         public async Task DeleteEventAsync(DeleteEventDto dto)
         {
-            await eventRepository.DeleteAsync(dto.id);
-
+            await eventRepository.DeleteAsync(dto.EventId);
             await eventRepository.SaveChangesAsync();
         }
     }
 }
+

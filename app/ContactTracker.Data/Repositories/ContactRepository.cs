@@ -5,7 +5,7 @@ namespace ContactTracker.Data.Repositories
 {
     public class ContactRepository : IContactRepository
     {
-        private readonly AplicationDbContext dbContext;
+        private readonly ApplicationDbContext dbContext;
 
         public ContactRepository(ApplicationDbContext dbContext)
         {
@@ -26,6 +26,11 @@ namespace ContactTracker.Data.Repositories
         async Task<IEnumerable<Contact>> IContactRepository.ListAsync()
         {
             return await dbContext.Contacts.ToListAsync();
+        }
+
+        async Task<Contact> IContactRepository.UpdateAsync(Contact c)
+        {
+            await dbContact.Contacts.UpdateAsync(c);
         }
 
         public async Task SaveChangesAsync()

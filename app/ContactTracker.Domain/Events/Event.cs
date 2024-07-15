@@ -1,4 +1,4 @@
-using ContactTracker.Domain.Contacts;
+using ContactTracker.Domain;
 
 namespace ContactTracker.Domain.Events
 {
@@ -16,8 +16,8 @@ namespace ContactTracker.Domain.Events
         public bool HasOccurred { get; set; } = false;
         public bool InPerson { get; set; }
 
-        public Guid contactId { get; set; }
-        public Contact Contact{ get; set; }
+        public Guid? contactId { get; set; }
+        public Domain.Contacts.Contact? Contact{ get; set; }
 
     }
 

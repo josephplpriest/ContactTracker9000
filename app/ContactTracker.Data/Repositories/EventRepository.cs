@@ -25,6 +25,11 @@ namespace ContactTracker.Data.Repositories
 
         }
 
+        async Task<Event> IEventRepository.UpdateAsync(Event e)
+        {
+            await dbContext.Events.UpdateAsync(e);
+        }
+
         async Task<Event> IEventRepository.GetAsync(Guid id)
         {
             var Event = await dbContext.Events.SingleOrDefaultAsync(x => x.Id == id);

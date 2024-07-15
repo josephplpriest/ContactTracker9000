@@ -12,6 +12,11 @@ namespace ContactTracker.Data.Repositories
             this.dbContext = dbContext;
         }
 
+
+        async Task IEventRepository.AddAsync(Event e)
+        {
+            await dbContext.Events.AddAsync(e);
+        }
         async Task IEventRepository.DeleteAsync(Guid id)
         {
             var Event = await dbContext.Events.SingleOrDefaultAsync(x => x.Id == id);
@@ -31,10 +36,6 @@ namespace ContactTracker.Data.Repositories
             return await dbContext.Events.Where(x => x.Date >= startDate && x.Date <= endDate).ToListAsync();
         }
 
-        async Task IEventRepository.AddAsync(Event e)
-        {
-            await dbContext.Events.AddAsync(e);
-        }
 
         public async Task SaveChangesAsync()
         {

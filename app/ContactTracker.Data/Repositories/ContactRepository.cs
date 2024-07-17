@@ -30,7 +30,7 @@ namespace ContactTracker.Data.Repositories
 
         async Task IContactRepository.UpdateAsync(Contact c)
         {
-            await dbContact.Contacts.UpdateAsync(c);
+            await dbContext.Contacts.UpdateAsync(c);
         }
 
         public async Task SaveChangesAsync()

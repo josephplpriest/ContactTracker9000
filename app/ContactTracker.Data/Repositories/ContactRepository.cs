@@ -37,7 +37,7 @@ namespace ContactTracker.Data.Repositories
         {
             await dbContext.SaveChangesAsync();
         }
-        async Task IConcactRepository.DeleteAsync(Guid id)
+        async Task IContactRepository.DeleteAsync(Guid id)
         {
             var Contact = await dbContext.Contacts.SingleOrDefaultAsync(x => x.Id == id);
 

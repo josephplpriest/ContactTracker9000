@@ -28,7 +28,7 @@ namespace ContactTracker.Data.Repositories
             return await dbContext.Contacts.ToListAsync();
         }
 
-        async Task<Contact> IContactRepository.UpdateAsync(Contact c)
+        async Task IContactRepository.UpdateAsync(Contact c)
         {
             await dbContact.Contacts.UpdateAsync(c);
         }

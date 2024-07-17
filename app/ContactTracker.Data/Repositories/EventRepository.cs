@@ -25,7 +25,7 @@ namespace ContactTracker.Data.Repositories
 
         }
 
-        async Task<Event> IEventRepository.UpdateAsync(Event e)
+        async Task IEventRepository.UpdateAsync(Event e)
         {
             await dbContext.Events.UpdateAsync(e);
         }

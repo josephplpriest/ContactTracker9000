@@ -10,7 +10,7 @@ namespace ContactTracker.Domain.Contacts
 
         internal protected Task DeleteAsync(Guid id);
 
-        internal protected Task UpdateAsync(Contact c);
+        internal protected void Update(Contact c);
 
         internal protected Task SaveChangesAsync();
     }

@@ -8,7 +8,7 @@ namespace ContactTracker.Domain.Events
 
         internal protected Task AddAsync(Event e);
 
-        internal protected Task UpdateAsync(Event e);
+        internal protected void Update(Event e);
 
         internal protected Task DeleteAsync(Guid id);
 

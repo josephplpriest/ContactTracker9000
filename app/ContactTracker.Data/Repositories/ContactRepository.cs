@@ -28,9 +28,9 @@ namespace ContactTracker.Data.Repositories
             return await dbContext.Contacts.ToListAsync();
         }
 
-        async Task IContactRepository.UpdateAsync(Contact c)
+        public void Update(Contact c)
         {
-            await dbContext.Contacts.UpdateAsync(c);
+            dbContext.Entry(c).State = EntityState.Modified;
         }
 
         public async Task SaveChangesAsync()

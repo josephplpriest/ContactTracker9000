@@ -25,9 +25,9 @@ namespace ContactTracker.Data.Repositories
 
         }
 
-        async Task IEventRepository.UpdateAsync(Event e)
+        public void Update(Event e)
         {
-            await dbContext.Events.UpdateAsync(e);
+            dbContext.Entry(e).State = EntityState.Modified;
         }
 
         async Task<Event> IEventRepository.GetAsync(Guid id)

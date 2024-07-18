@@ -10,6 +10,7 @@ namespace ContactTracker.Domain.Contacts
     );
 
     public record UpdateContactDto(
+        Guid ContactId,
         string? FirstName,
         string? LastName,
         string PreferredName,

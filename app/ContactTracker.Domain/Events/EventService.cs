@@ -75,7 +75,7 @@ namespace ContactTracker.Domain.Events
             e.contactId = dto.ContactId;
             e.Contact = dto.Contact;
 
-            await eventRepository.UpdateAsync(e);
+            eventRepository.Update(e);
             await eventRepository.SaveChangesAsync();
         }
 

@@ -6,7 +6,7 @@ namespace ContactTracker.Domain.Contacts
         string PreferredName,
         string? Occupation,
         List<string> Interests,
-        Relationship Relationship
+        Relationships Relationship
     );
 
     public record UpdateContactDto(
@@ -16,7 +16,7 @@ namespace ContactTracker.Domain.Contacts
         string PreferredName,
         string? Occupation,
         List<string> Interests,
-        Relationship Relationship
+        Relationships Relationship
     );
 
     public record DeleteContactDto(

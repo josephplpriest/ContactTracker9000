@@ -5,9 +5,9 @@ namespace ContactTracker.Data.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly ContactTrackerContext dbContext;
 
-        public EventRepository(ApplicationDbContext dbContext)
+        public EventRepository(ContactTrackerContext dbContext)
         {
             this.dbContext = dbContext;
         }

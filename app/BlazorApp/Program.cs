@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<ContactTrackerContext>(options =>
 {
     var folder = Environment.SpecialFolder.LocalApplicationData;
     var path = Environment.GetFolderPath(folder);
@@ -31,8 +31,9 @@ if (!app.Environment.IsDevelopment())
 // This section sets up and seeds the database. 
 await using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateAsyncScope();
 
-var options = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-await DatabaseUtility.EnsureDbCreatedAndSeedWithCountOfAsync(options, 10);
+
+var context = scope.ServiceProvider.GetRequiredService<ContactTrackerContext>();
+await DatabaseUtility.EnsureDbCreatedAndSeedWithCountOfAsync(context, 10);
 
 app.UseHttpsRedirection();
 

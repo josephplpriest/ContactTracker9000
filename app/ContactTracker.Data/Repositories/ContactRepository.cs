@@ -5,9 +5,9 @@ namespace ContactTracker.Data.Repositories
 {
     public class ContactRepository : IContactRepository
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly ContactTrackerContext dbContext;
 
-        public ContactRepository(ApplicationDbContext dbContext)
+        public ContactRepository(ContactTrackerContext dbContext)
         {
             this.dbContext = dbContext;
         }

@@ -63,13 +63,6 @@ public class SeedContacts
         "Lawyer"
     };
 
-    private string[] _relationships = new[]
-    {
-        "Family",
-        "Friend",
-        "Professional"
-    };
-
     // Picks a random item from a list.
     // list: A list of string to parse.
     private string RandomOne(string[] list)
@@ -90,14 +83,13 @@ public class SeedContacts
             PreferredName = RandomOne(_nicknames),
             Occupation = RandomOne(_occupation),
             Interests = [RandomOne(_interests), RandomOne(_interests)],
-            Relationship = RandomOne(Relationship)
+            Relationship = (Relationships)Random.Shared.Next(Enum.GetValues<Relationships>().Length)
         };
 
         return contact;
     }
 
-    public async Task SeedDatabaseWithContactCountOfAsync(ApplicationDbContext context, int totalCount)
-    {
+    public async Task SeedDatabaseWithContactCountOfAsync(ContactTrackerContext context, int totalCount, CancellationToken cancellationToken = default)    {
         var count = 0;
         var currentCycle = 0;
         while (count < totalCount)

@@ -1,6 +1,7 @@
 using BlazorApp.Components;
-using ContactTracker.Domain;
-using ContactTracker.Data;
+using ContactTracker.Domain.Contacts;
+using ContactTracker.Domain.Events;
+using ContactTracker.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -10,6 +11,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+builder.Services.AddScoped<IContactRepository, ContactRepository>();
+builder.Services.AddScoped<IContactService, ContactService>();
+
+builder.Services.AddScoped<IEventRepository, EventRepository>();
+builder.Services.AddScoped<IEventService, EventService>();
+
 builder.Services.AddDbContext<ContactTrackerContext>(options =>
 {
     var folder = Environment.SpecialFolder.LocalApplicationData;
@@ -18,7 +25,9 @@ builder.Services.AddDbContext<ContactTrackerContext>(options =>
     options.UseSqlite($"Data Source={dbPath}");
 });
 
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -31,9 +40,10 @@ if (!app.Environment.IsDevelopment())
 // This section sets up and seeds the database. 
 await using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateAsyncScope();
 
-
 var context = scope.ServiceProvider.GetRequiredService<ContactTrackerContext>();
-await DatabaseUtility.EnsureDbCreatedAndSeedWithCountOfAsync(context, 10);
+await DatabaseUtility.EnsureDbCreatedAndSeedWithCountOfAsync(context, 30);
+
+    
 
 app.UseHttpsRedirection();
 

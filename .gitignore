@@ -400,4 +400,4 @@ FodyWeavers.xsd
 
 # Data / Migrations
 *.db
-/Migrations
+Migrations/

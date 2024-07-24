@@ -1,51 +1,25 @@
-﻿@page "/Contacts"
-@page "/Contacts/{Page:int}"
-@rendermode InteractiveServer
-@inject IContactService ContactService
+﻿@page "/contacts"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using System.Collections.ObjectModel
+@using ContactTracker.Domain.Contacts
+@inject IContactRepository ContactRepository
 
-<h1>Contacts Grid</h1>
+<h3>Contacts</h3>
 
-@if (contacts == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Preferred Name</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < contacts.Count(); i++)
-            {
-                var contact = contacts.ElementAt(i);
-                <tr>
-                    <td>@contact.PreferredName</td>
-                    <td>@contact.FirstName</td>
-                    <td>@contact.LastName</td>
-                    <!-- Add more columns as needed -->
-                </tr>
-            }
-        </tbody>
-    </table>
-}
+<QuickGrid Items="@contacts" Pagination="@pagination">
+    <PropertyColumn Property="@(c => c.FirstName)" Title="First Name" Sortable="true" />
+    <PropertyColumn Property="@(c => c.LastName)" Title="Last Name" Sortable="true" />
+</QuickGrid>
+
+<Paginator State="@pagination" />
+
 @code {
-    private IEnumerable<Contact>? contacts;
-
-    [Parameter]
-    public int Page { get; set; } = 1;
+    private IQueryable<Contact>? contacts;
+    private PaginationState pagination = new PaginationState { ItemsPerPage = 30 };
 
     protected override async Task OnInitializedAsync()
     {
-        await LoadContacts();
-    }
-
-    private async Task LoadContacts()
-    {
-        contacts = await ContactService.GetContactsAsync();
+        var contactsList = await ContactRepository.ListAsync();
+        contacts = contactsList.AsQueryable();
     }
 }

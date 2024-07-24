@@ -11,9 +11,18 @@ public static class DatabaseUtility
         int count, 
         CancellationToken cancellationToken = default)
     {
-        var factory = new LoggerFactory(); // Empty to avoid logging while inserting
-        var builder = new DbContextOptionsBuilder<ContactTrackerContext>()
-            .UseLoggerFactory(factory);
+        // var factory = new LoggerFactory();
+        // var builder = new DbContextOptionsBuilder<ContactTrackerContext>()
+        //     .UseLoggerFactory(factory);
+
+        var factory = LoggerFactory.Create(builder =>
+        {
+        builder
+        .AddFilter((category, level) => 
+            category == DbLoggerCategory.Database.Command.Name && 
+            level == LogLevel.Information)
+        .AddConsole();
+        });
 
         if (await context.Database.EnsureCreatedAsync(cancellationToken))
         {

@@ -4,7 +4,6 @@ using ContactTracker.Domain.Events;
 using ContactTracker.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container
@@ -19,12 +18,10 @@ builder.Services.AddScoped<IEventService, EventService>();
 
 builder.Services.AddDbContext<ContactTrackerContext>(options =>
 {
-    var folder = Environment.SpecialFolder.LocalApplicationData;
-    var path = Environment.GetFolderPath(folder);
-    var dbPath = Path.Join(path, "ContactTracker.db");
+    var dbPath = ContactTracker.Data.DatabaseHelpers.GetDatabasePath();
+
     options.UseSqlite($"Data Source={dbPath}");
 });
-
 
 var app = builder.Build();
 
@@ -42,7 +39,6 @@ await using var scope = app.Services.GetRequiredService<IServiceScopeFactory>().
 
 var context = scope.ServiceProvider.GetRequiredService<ContactTrackerContext>();
 await DatabaseUtility.EnsureDbCreatedAndSeedWithCountOfAsync(context, 30);
-
     
 
 app.UseHttpsRedirection();

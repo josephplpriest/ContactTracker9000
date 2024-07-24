@@ -1,13 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-
+namespace ContactTracker.Data
+{
 public class ContactTrackerContextFactory : IDesignTimeDbContextFactory<ContactTrackerContext>
 {
     public ContactTrackerContext CreateDbContext(string[] args)
     {
         var optionsBuilder = new DbContextOptionsBuilder<ContactTrackerContext>();
-        optionsBuilder.UseSqlite("Data Source=ContactTracker.db");
-
+        var dbPath = DatabaseHelpers.GetDatabasePath();
+        optionsBuilder.UseSqlite($"Data Source={dbPath}");
         return new ContactTrackerContext(optionsBuilder.Options);
     }
+}
 }

@@ -1,9 +1,5 @@
-﻿@page "/"
-@page "/{Page:int}"
-@using Microsoft.EntityFrameworkCore
-@using Microsoft.AspNetCore.Components.QuickGrid
-@using ContactTracker.Domain.Contacts
-@using System.Linq
+﻿@page "/Contacts"
+@page "/Contacts/{Page:int}"
 @rendermode InteractiveServer
 @inject IContactService ContactService
 
@@ -38,7 +34,7 @@ else
     </table>
 }
 @code {
-    private IEnumerable<Contact> contacts;
+    private IEnumerable<Contact>? contacts;
 
     [Parameter]
     public int Page { get; set; } = 1;

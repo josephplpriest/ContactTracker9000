@@ -1,8 +1,5 @@
 @page "/createcontact"
-@using System.Threading
-@using System.Collections.ObjectModel
 @using ContactTracker.Domain.Contacts
-@using MudBlazor
 @inject IContactService ContactService
 
 <EditForm Model="@newContact" OnValidSubmit="@HandleValidSubmit">
@@ -23,14 +20,24 @@
         <label for="preferredName">Preferred Name:</label>
         <InputText id="preferredName" @bind-Value="newContact.PreferredName" />
     </div>
+
     <div>
         <label for="occupation">Occupation:</label>
         <InputText id="occupation" @bind-Value="newContact.Occupation" />
     </div>
-    <div>
-        <label for="interests">Interests:</label>
-        <InputText id="Interests" @bind-Value="newContact.Interests" />
-    </div>
+
+<div>
+    <label>Interests:</label>
+    @for (int i = 0; i < newContact.Interests.Count; i++)
+    {
+        int index = i;  // Capture the index for use in lambda
+        <div>
+            <InputText @bind-Value="newContact.Interests[index]" />
+            <button type="button" @onclick="() => RemoveInterest(index)">Remove</button>
+        </div>
+    }
+    <button type="button" @onclick="AddInterest">Add Interest</button>
+</div>
     <div>
         <label for="relationship">Relationship:</label>
         <InputSelect id="relationship" @bind-Value="newContact.Relationship">
@@ -40,25 +47,44 @@
             }
         </InputSelect>
     </div>
+
     <button type="submit">Create Contact</button>
 </EditForm>
 
 @code {
-    private CreateContactDto newContact = new CreateContactDto(
-        FirstName: null,
-        LastName: null,
-        PreferredName: "",
-        Occupation: null,
-        Interests: ["pickleball", "hockey"],
-        Relationship: Relationships.Friend  // Default value
-    );
+    public CreateContactDto newContact = new CreateContactDto
+    {
+        FirstName = null,
+        LastName = null,
+        PreferredName = "",
+        Occupation = null,
+        Interests = new List<string>(),
+        Relationship = Relationships.Friend
+    };
+    
+    private void AddInterest()
+    {
+        newContact.Interests.Add("");
+    }
 
+    private void RemoveInterest(int index)
+    {
+        newContact.Interests.RemoveAt(index);
+    }
 
     private async Task HandleValidSubmit()
     {
         // Call your service to create the contact
         await ContactService.CreateContactAsync(newContact);
         // Reset the form or navigate away
-        newContact = new CreateContactDto(null, null, "", null, new List<string>(), Relationships.Friend);
+        newContact = new CreateContactDto
+        {
+            FirstName = null,
+            LastName = null,
+            PreferredName = "",
+            Occupation = null,
+            Interests = new List<string>(),
+            Relationship = Relationships.Friend
+        };
     }
 }

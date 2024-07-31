@@ -1,26 +1,29 @@
 namespace ContactTracker.Domain.Contacts
 {
-    public record CreateContactDto(
-        string? FirstName,
-        string? LastName,
-        string PreferredName,
-        string? Occupation,
-        List<string> Interests,
-        Relationships Relationship
-    );
+    public record CreateContactDto
+    {
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string PreferredName { get; set; } = string.Empty;
+        public string? Occupation { get; set; }
+        public List<string> Interests { get; set; } = new List<string>();
+        public Relationships Relationship { get; set; }
+    }
 
-    public record UpdateContactDto(
-        Guid ContactId,
-        string? FirstName,
-        string? LastName,
-        string PreferredName,
-        string? Occupation,
-        List<string> Interests,
-        Relationships Relationship
-    );
+    public record UpdateContactDto
+    {
+        public Guid ContactId { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string PreferredName { get; set; } = string.Empty;
+        public string? Occupation { get; set; }
+        public List<string> Interests { get; set; } = new List<string>();
+        public Relationships Relationship { get; set; }
+    }
 
-    public record DeleteContactDto(
-        Guid ContactId,
-        Guid EventId
-    );
+    public record DeleteContactDto
+    {
+        public Guid ContactId { get; set; }
+        public Guid EventId { get; set; }
+    }
 }

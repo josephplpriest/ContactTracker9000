@@ -1,0 +1,64 @@
+@page "/createcontact"
+@using System.Threading
+@using System.Collections.ObjectModel
+@using ContactTracker.Domain.Contacts
+@using MudBlazor
+@inject IContactService ContactService
+
+<EditForm Model="@newContact" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label for="firstName">First Name:</label>
+        <InputText id="firstName" @bind-Value="newContact.FirstName" />
+    </div>
+
+    <div>
+        <label for="lastName">Last Name:</label>
+        <InputText id="lastName" @bind-Value="newContact.LastName" />
+    </div>
+
+    <div>
+        <label for="preferredName">Preferred Name:</label>
+        <InputText id="preferredName" @bind-Value="newContact.PreferredName" />
+    </div>
+    <div>
+        <label for="occupation">Occupation:</label>
+        <InputText id="occupation" @bind-Value="newContact.Occupation" />
+    </div>
+    <div>
+        <label for="interests">Interests:</label>
+        <InputText id="Interests" @bind-Value="newContact.Interests" />
+    </div>
+    <div>
+        <label for="relationship">Relationship:</label>
+        <InputSelect id="relationship" @bind-Value="newContact.Relationship">
+            @foreach (var relationship in Enum.GetValues(typeof(Relationships)))
+            {
+                <option value="@relationship">@relationship</option>
+            }
+        </InputSelect>
+    </div>
+    <button type="submit">Create Contact</button>
+</EditForm>
+
+@code {
+    private CreateContactDto newContact = new CreateContactDto(
+        FirstName: null,
+        LastName: null,
+        PreferredName: "",
+        Occupation: null,
+        Interests: ["pickleball", "hockey"],
+        Relationship: Relationships.Friend  // Default value
+    );
+
+
+    private async Task HandleValidSubmit()
+    {
+        // Call your service to create the contact
+        await ContactService.CreateContactAsync(newContact);
+        // Reset the form or navigate away
+        newContact = new CreateContactDto(null, null, "", null, new List<string>(), Relationships.Friend);
+    }
+}

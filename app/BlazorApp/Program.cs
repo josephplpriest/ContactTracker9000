@@ -3,6 +3,7 @@ using ContactTracker.Domain.Contacts;
 using ContactTracker.Domain.Events;
 using ContactTracker.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
+using MudBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,7 @@ builder.Services.AddScoped<IContactService, ContactService>();
 
 builder.Services.AddScoped<IEventRepository, EventRepository>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddMudServices();
 
 builder.Services.AddDbContext<ContactTrackerContext>(options =>
 {
@@ -50,3 +52,6 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+
+

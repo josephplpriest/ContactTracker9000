@@ -1,25 +1,76 @@
 ﻿@page "/contacts"
-@using Microsoft.AspNetCore.Components.QuickGrid
+
+@using System.Threading
 @using System.Collections.ObjectModel
 @using ContactTracker.Domain.Contacts
-@inject IContactRepository ContactRepository
+@using MudBlazor
+@inject IContactService ContactService
 
-<h3>Contacts</h3>
 
-<QuickGrid Items="@contacts" Pagination="@pagination">
-    <PropertyColumn Property="@(c => c.FirstName)" Title="First Name" Sortable="true" />
-    <PropertyColumn Property="@(c => c.LastName)" Title="Last Name" Sortable="true" />
-</QuickGrid>
-
-<Paginator State="@pagination" />
+<MudTable ServerData="ServerReload" Dense="true" Hover="true" @ref="table">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Contacts</MudText>
+        <MudSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+            AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>
+            <MudTableSortLabel SortLabel="PreferredName" T="Contact">PreferredName</MudTableSortLabel>
+        </MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="PreferredName">@context.PreferredName</MudTd>
+    </RowTemplate>
+    <NoRecordsContent>
+        <MudText>No matching records found</MudText>
+    </NoRecordsContent>
+    <LoadingContent>
+        <MudText>Loading...</MudText>
+    </LoadingContent>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
 
 @code {
-    private IQueryable<Contact>? contacts;
-    private PaginationState pagination = new PaginationState { ItemsPerPage = 30 };
+    private MudTable<Contact> table;
 
-    protected override async Task OnInitializedAsync()
+    private int totalItems;
+    private string searchString = null;
+
+    /// <summary>
+    /// Here we simulate getting the paged, filtered and ordered data from the server
+    /// </summary>
+    private async Task<TableData<Contact>> ServerReload(TableState state, CancellationToken token)
     {
-        var contactsList = await ContactRepository.ListAsync();
-        contacts = contactsList.AsQueryable();
+        IEnumerable<Contact> data = await ContactService.GetContactsAsync();
+
+        await Task.Delay(300, token);
+        data = data.Where(Contact =>
+        {
+            if (string.IsNullOrWhiteSpace(searchString))
+                return true;
+            if (Contact.PreferredName.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                return true;
+            return false;
+        }).ToArray();
+        totalItems = data.Count();
+        switch (state.SortLabel)
+        {
+            case "PreferredName":
+                data = state.SortDirection == SortDirection.Ascending 
+                    ? data.OrderBy(o => o.PreferredName)
+                    : data.OrderByDescending(o => o.PreferredName);
+                break;
+        }
+
+        return new TableData<Contact>() { TotalItems = totalItems, Items = data };
+    }
+
+    private async Task OnSearch(string text)
+    {
+        searchString = text;
+        await table.ReloadServerData();
     }
 }

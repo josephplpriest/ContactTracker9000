@@ -1,0 +1,81 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Visual Studio files
+.vs/
+*.user
+*.userosscache
+*.suo
+*.userprefs
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+
+# ReSharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+
+# Node.js (if using Blazor WebAssembly)
+node_modules/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Blazor-specific
+**/*.razor.css
+
+# Misc
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Environment files
+*.env
+appsettings.*.json
+!appsettings.json
+
+# Tests
+*/ContactTracker.Domain.Tests/
+
+# Documentation
+README.md
+CHANGELOG.md
+LICENSE
+
+# Docker files (if you don't want to include them in the build context)
+Dockerfile
+docker-compose.yml

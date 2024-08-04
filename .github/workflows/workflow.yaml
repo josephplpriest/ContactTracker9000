@@ -25,4 +25,4 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Test
-      run: dotnet test ContactTracker.Domain.Tests.csproj --no-build --verbosity normal
+      run: dotnet test ./app/ContactTracker.Domain.Tests/ContactTracker.Domain.Tests.csproj --no-build --verbosity normal

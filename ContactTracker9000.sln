@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactTracker.Data", "app\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactTracker.Domain", "app\ContactTracker.Domain\ContactTracker.Domain.csproj", "{E493BFAA-29E2-4A3B-BC93-6F6D0ED12115}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContactTracker.Domain.Tests", "app\ContactTracker.Domain.Tests\ContactTracker.Domain.Tests.csproj", "{5BEA191D-B2A7-4397-9B84-08C29D92A131}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,10 +34,15 @@ Global
 		{E493BFAA-29E2-4A3B-BC93-6F6D0ED12115}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E493BFAA-29E2-4A3B-BC93-6F6D0ED12115}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E493BFAA-29E2-4A3B-BC93-6F6D0ED12115}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BEA191D-B2A7-4397-9B84-08C29D92A131}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BEA191D-B2A7-4397-9B84-08C29D92A131}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BEA191D-B2A7-4397-9B84-08C29D92A131}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BEA191D-B2A7-4397-9B84-08C29D92A131}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1377B70E-8A6E-41AE-8638-37035AEAF083} = {A0031C34-93D3-4250-84BC-9AB1B131DA1D}
 		{F9509053-A482-4C38-A002-42F93754E53B} = {A0031C34-93D3-4250-84BC-9AB1B131DA1D}
 		{E493BFAA-29E2-4A3B-BC93-6F6D0ED12115} = {A0031C34-93D3-4250-84BC-9AB1B131DA1D}
+		{5BEA191D-B2A7-4397-9B84-08C29D92A131} = {A0031C34-93D3-4250-84BC-9AB1B131DA1D}
 	EndGlobalSection
 EndGlobal

@@ -16,7 +16,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.x'
+        dotnet-version: '8.0.x'
         
     - name: Restore dependencies
       run: dotnet restore
@@ -25,4 +25,4 @@ jobs:
       run: dotnet build --no-restore
       
     - name: Test
-      run: dotnet test app/ContactTracker.Domain.Tests/ContactTracker.Domain.Tests.csproj --no-build --verbosity normal
+      run: dotnet test ContactTracker.Domain.Tests.csproj --no-build --verbosity normal

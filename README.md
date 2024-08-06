@@ -1,5 +1,5 @@
 
-<img src="images/header_image.jpeg" alt="drawing" width="500" height="200"/>
+<img src="images/readme_header.jpeg" alt="drawing" width="500" height="150"/>
 
 # ContactTracker9000
 A Blazor C#/dotnet Server application for tracker information about friends, family and professional contacts.:

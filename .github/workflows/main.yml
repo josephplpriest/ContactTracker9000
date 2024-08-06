@@ -1,4 +1,4 @@
-name: Run xUnit Tests
+name: Github Actions
 
 on:
   push:

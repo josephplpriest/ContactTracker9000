@@ -68,8 +68,6 @@ desktop.ini
 appsettings.*.json
 !appsettings.json
 
-# Tests
-*/ContactTracker.Domain.Tests/
 
 # Documentation
 README.md

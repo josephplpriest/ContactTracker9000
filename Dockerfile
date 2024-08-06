@@ -14,4 +14,4 @@ WORKDIR /app
 
 COPY --from=build-env /app/output .
 
-ENTRYPOINT ["dotnet", "BlazorApp.dll"]
+ENTRYPOINT ["dotnet", "WebApp.dll"]

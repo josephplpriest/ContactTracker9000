@@ -1,4 +1,4 @@
-using BlazorApp.Components;
+using ContactTracker.WebApp.Components;
 using ContactTracker.Domain.Contacts;
 using ContactTracker.Domain.Events;
 using ContactTracker.Data.Repositories;

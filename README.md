@@ -1,5 +1,8 @@
+
+<img src="images/header_image.jpeg" alt="drawing" width="500" height="200"/>
+
 # ContactTracker9000
-A Blazor C#/dotnet Server application for tracker information about friends, family and professional contacts.
+A Blazor C#/dotnet Server application for tracker information about friends, family and professional contacts.:
 
 ![Passing Tests](https://github.com/josephplpriest/ContactTracker9000/actions/workflows/main.yml/badge.svg)
 [![language](https://img.shields.io/badge/language-C%23-239120)](https://learn.microsoft.com/en-us/dotnet/csharp/tour-of-csharp/tutorials/)
@@ -22,10 +25,14 @@ dotnet --version  # Check the installed version of .NET SDK
 # Run via the terminal
 dotnet watch --project app/ContactTracker.WebApp/ContactTracker.WebApp.csproj
 
+# open http://localhost:5135 if it does not open automatically
+
 OR
 
 # Run via docker
 docker build . --tag contacttracker:latest && docker run -p 8080:8080 contacttracker:latest
+
+# open http://localhost:8080 if it does not open automatically
 
 ```
 

@@ -14,4 +14,6 @@ WORKDIR /app
 
 COPY --from=build-env /app/output .
 
-ENTRYPOINT ["dotnet", "WebApp.dll"]
+EXPOSE 8080
+
+ENTRYPOINT ["dotnet", "ContactTracker.WebApp.dll"]

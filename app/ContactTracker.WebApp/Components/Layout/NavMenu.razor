@@ -1,24 +1,16 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">Contact Tracker</a>
-    </div>
-</div>
-
-<input type="checkbox" title="Navigation menu" class="navbar-toggler" />
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Contacts">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Contacts
-            </NavLink>
-        </div>
-
-        @* <div class="nav-item px-3">
-            <NavLink class="nav-link" href="Events">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Events
-            </NavLink>
-        </div> *@
-    </nav>
-</div>
-
+﻿<MudPaper Width="250px" Class="d-inline-flex py-3" Elevation="0">
+    <MudNavMenu Class="mud-width-full">
+        <MudText Typo="Typo.h6" Class="px-4"><h6>Contact Tracker</h6></MudText>
+        <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">App</MudText>
+        <MudDivider Class="my-2" />
+        <MudNavGroup Title="Contacts" Icon="@Icons.Material.Filled.People">
+            <MudNavLink Href="/listcontacts" Icon="@Icons.Material.Filled.List">List</MudNavLink>
+            <MudNavLink Href="/createcontact" Icon="@Icons.Material.Filled.Add">Add</MudNavLink>
+        </MudNavGroup>
+        <MudNavGroup Title="Events" Icon="@Icons.Material.Filled.Event">
+            <MudNavLink Href="/listevents" Icon="@Icons.Material.Filled.List">List</MudNavLink>
+            <MudNavLink Href="/createevent" Icon="@Icons.Material.Filled.Add">Add</MudNavLink>
+            <MudNavLink Href="/calendar" Icon="@Icons.Material.Filled.CalendarMonth">Calendar</MudNavLink>
+        </MudNavGroup>
+    </MudNavMenu>
+</MudPaper>

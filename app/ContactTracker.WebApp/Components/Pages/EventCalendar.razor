@@ -1,0 +1,22 @@
+@page "/eventcalendar"
+@using ContactTracker.Domain.Events
+@inject IEventService EventService
+
+<MudCalendar Items="_calendarItems" />
+
+@code {
+    private IEnumerable<Event> _events = new List<Event>();
+    private List<CalendarItem> _calendarItems = new List<CalendarItem>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _events = await EventService.GetEventsAsync();
+        
+        _calendarItems = _events.Select(e => new CalendarItem
+        {
+            Start = e.Date,
+            End = e.Duration.HasValue ? e.Date.Add(e.Duration.Value) : e.Date.AddHours(1),
+            Text = e.Description
+        }).ToList();
+    }
+}

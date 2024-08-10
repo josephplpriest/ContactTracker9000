@@ -36,9 +36,9 @@ namespace ContactTracker.Data.Repositories
             return Event ?? throw new KeyNotFoundException($"Event with id {id} not found");
         }
 
-        async Task<IEnumerable<Event>> IEventRepository.ListAsync(DateTime startDate, DateTime endDate)
+        async Task<IEnumerable<Event>> IEventRepository.ListAsync()
         {
-            return await dbContext.Events.Where(x => x.Date >= startDate && x.Date <= endDate).ToListAsync();
+            return await dbContext.Events.ToListAsync();
         }
 
 

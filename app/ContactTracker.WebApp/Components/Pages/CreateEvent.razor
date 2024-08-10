@@ -1,0 +1,90 @@
+@page "/createevent"
+@using ContactTracker.Domain.Events
+@using System.ComponentModel.DataAnnotations;
+@inject IEventService EventService
+
+<EditForm Model="@eventForm" OnSubmit="HandleValidSubmit" FormName="EventForm">
+    <DataAnnotationsValidator /> 
+    <MudCard>
+    <MudGrid Spacing="2">
+        <MudItem xs="12" sm="6" md="4">
+            <MudTextField Label="Location" @bind-Value="eventForm.Location" For="@(() => eventForm.Location)" Required="true" T="string" RequiredError="First name is required" InputType="@InputType.Text" Class="form-text-field" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudTextField Label="Description" @bind-Value="eventForm.Description" For="@(() => eventForm.Description)" Required="true" T="string" RequiredError="Last name is required" InputType="@InputType.Text" Class="form-text-field" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+            <MudTextField Label="Pre-meeting Notes" @bind-Value="eventForm.PreNotes" For="@(() => eventForm.PreNotes)" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+        <MudDatePicker Label="Meeting/Event Date" Editable="true" @bind-Date="eventForm.Date" Placeholder="Select Date" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+        <MudTimePicker Label="Meeting Start" AmPm="true" @bind-Time="eventForm.StartTime" />
+        </MudItem>
+        <MudItem xs="12" sm="6" md="4">
+        <MudTimePicker Label="Meeting Duration" @bind-Time="eventForm.Duration" />
+        </MudItem>
+        <MudCardActions>
+                 <MudButton ButtonType="ButtonType.Submit" Color="Color.Primary" Variant="Variant.Filled" Class="ml-auto">Submit</MudButton>
+        </MudCardActions>
+    </MudGrid>
+    </MudCard>
+</EditForm>
+
+@code {
+    private EventForm eventForm = new EventForm();
+    
+    public class EventForm
+    {
+        [Required(ErrorMessage = "Location is required")]
+        [StringLength(36, ErrorMessage = "Location is too long", MinimumLength = 2)]
+        public string Location { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Description is required")]
+        [StringLength(128, ErrorMessage = "Description is too long", MinimumLength = 2)]
+        public string Description { get; set; } = string.Empty;
+
+        [StringLength(128, ErrorMessage = "Pre-Meeting Notes is too long", MinimumLength = 2)]
+        public string PreNotes { get; set; } = string.Empty;
+
+        [StringLength(128, ErrorMessage = "Post-Meeting Notes is too long", MinimumLength = 2)]
+        public string PostNotes { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Date is required")]
+        public DateTime? Date { get; set; } = DateTime.Today;
+
+        [Required(ErrorMessage = "Start time is required")]
+        public TimeSpan? StartTime = new TimeSpan(12, 00, 00);
+
+        [Required(ErrorMessage = "Duration time is required")]
+        public TimeSpan? Duration = new TimeSpan(1, 00, 00);
+
+    }
+
+
+    public CreateEventDto newEvent = new CreateEventDto
+    {
+        Date = DateTime.Now,
+        Location = string.Empty,
+        Description = string.Empty,
+        Duration = TimeSpan.Zero,
+        PreNotes = string.Empty,
+        PostNotes = string.Empty,
+        InPerson = true,
+        ContactId = Guid.Empty
+    };
+
+    private async Task HandleValidSubmit()
+    {
+        var meetingStart = eventForm.Date + eventForm.StartTime;
+        
+        newEvent.Location = eventForm.Location;
+        newEvent.Description = eventForm.Description;
+        newEvent.PreNotes = eventForm.PreNotes;
+        newEvent.PostNotes = eventForm.PostNotes;
+        newEvent.Date = meetingStart.GetValueOrDefault(); 
+        newEvent.Duration = eventForm.Duration;
+        await EventService.CreateEventAsync(newEvent);
+    }
+}

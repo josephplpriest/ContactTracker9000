@@ -8,7 +8,7 @@ namespace ContactTracker.Domain.Events
     {
         Task<Event> GetEventAsync(Guid id);
 
-        Task<IEnumerable<Event>> GetEventsAsync(DateTime startDate, DateTime endDate);
+        Task<IEnumerable<Event>> GetEventsAsync();
 
         Task DeleteEventAsync(DeleteEventDto deleteEventDto);
 
@@ -33,9 +33,9 @@ namespace ContactTracker.Domain.Events
             return await eventRepository.GetAsync(id);
         }
 
-        public async Task<IEnumerable<Event>> GetEventsAsync(DateTime startDate, DateTime endDate)
+        public async Task<IEnumerable<Event>> GetEventsAsync()
         {
-            return await eventRepository.ListAsync(startDate, endDate);
+            return await eventRepository.ListAsync();
         }
 
         public async Task CreateEventAsync(CreateEventDto dto)

@@ -4,7 +4,7 @@ namespace ContactTracker.Domain.Events
     {
         internal protected Task<Event> GetAsync(Guid id);
 
-        internal protected Task<IEnumerable<Event>> ListAsync(DateTime startDate, DateTime endDate);
+        internal protected Task<IEnumerable<Event>> ListAsync();
 
         internal protected Task AddAsync(Event e);
 

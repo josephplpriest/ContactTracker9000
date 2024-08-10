@@ -11,6 +11,9 @@ namespace ContactTracker.Domain.Events
         public string? PostNotes { get; set; }
         public bool InPerson { get; set; }
         public Guid? ContactId { get; set; }
+        public bool ThankYouSent { get; set; }
+        public bool HasOccurred { get; set; }
+
     }
 
     public class UpdateEventDto

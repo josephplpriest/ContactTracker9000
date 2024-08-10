@@ -5,10 +5,9 @@ namespace ContactTracker.Domain.Events
 
     public class Event : Entity
     {
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public string? Location { get; set; }
         public required string Description { get; set; }
-        public EventType Type { get; set; }
         public TimeSpan? Duration { get; set; }
         public string? PreNotes { get; set; }
         public string? PostNotes { get; set; }

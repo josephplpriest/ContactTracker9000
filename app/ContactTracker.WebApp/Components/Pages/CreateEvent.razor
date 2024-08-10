@@ -1,0 +1,37 @@
+@page "/createevent"
+@using ContactTracker.Domain.Events
+@inject IEventService EventService
+
+
+<MudCard>
+    <MudCardContent>
+        <MudForm @ref="form">
+            <MudTextField @bind-Value="newEvent.Description" Label="Description" />
+            <MudButton Type="Validated" Variant="Variant.Filled" Color="Color.Primary">Create Event</MudButton>
+        </MudForm>
+    </MudCardContent>
+</MudCard>
+
+@code {
+    MudForm form;
+
+    public bool InPerson_Checkbox { get; set; } = true;
+
+    public CreateEventDto newEvent = new CreateEventDto
+    {
+        Date = DateTime.Today,
+        Location = null,
+        Description = "",
+        Duration = TimeSpan.Zero,
+        PreNotes = null,
+        PostNotes = null,
+        InPerson = true,
+        ContactId = Guid.Empty        
+    };
+
+    private async Task HandleValidSubmit()
+    {
+        await EventService.CreateEventAsync(newEvent);
+    }
+}    
+    

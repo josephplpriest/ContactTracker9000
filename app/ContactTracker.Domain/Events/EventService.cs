@@ -45,13 +45,11 @@ namespace ContactTracker.Domain.Events
                 Date = dto.Date,
                 Location = dto.Location,
                 Description = dto.Description,
-                Type = dto.Type,
                 Duration = dto.Duration,
                 PreNotes = dto.PreNotes,
                 PostNotes = dto.PostNotes,
                 InPerson = dto.InPerson,
                 contactId = dto.ContactId,
-                Contact = dto.Contact
             };
 
             await eventRepository.AddAsync(e);
@@ -65,7 +63,6 @@ namespace ContactTracker.Domain.Events
             e.Date = dto.Date;
             e.Location = dto.Location;
             e.Description = dto.Description;
-            e.Type = dto.Type;
             e.Duration = dto.Duration;
             e.PreNotes = dto.PreNotes;
             e.PostNotes = dto.PostNotes;
@@ -73,7 +70,6 @@ namespace ContactTracker.Domain.Events
             e.HasOccurred = dto.HasOccurred;
             e.InPerson = dto.InPerson;
             e.contactId = dto.ContactId;
-            e.Contact = dto.Contact;
 
             eventRepository.Update(e);
             await eventRepository.SaveChangesAsync();
